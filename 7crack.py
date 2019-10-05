@@ -9,18 +9,9 @@
 import argparse
 
 def crackpassword(hashval):
-	constant = "tfd;kfoA,.iyewrkldJKD"
-	ciphertext = hashval.upper()
-	seed = int(ciphertext[0] + ciphertext[1])
-	plaintext = ""
-
-	for i in range(1, len(ciphertext) / 2):
-		salt = constant[seed - 1]
-		hexval = int(ciphertext[i * 2] + ciphertext[i * 2 + 1], 16)
-		plaintext += chr(hexval ^ ord(salt))
-		seed += 1
-
-	print("Plaintext password is: " + plaintext)
+    decrypt=lambda x:''.join([chr(int(x[i:i+2],16)^ord('dsfd;kfoA,.iyewrkldJKDHSUBsgvca69834ncxv9873254k;fg87'[(int(x[:2])+i/2-1)%53]))for i in range(2,len(x),2)])
+    plaintext = decrypt(hashval)
+    print("Plaintext password is: " + plaintext)
 
 # Argument handling
 parser = argparse.ArgumentParser()
